@@ -1,0 +1,31 @@
+From 1163fa8228062617964930310522107a6a2a6475 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Wed, 30 Nov 2016 14:24:40 -0600
+Subject: [PATCH 05/12] ASoC: Intel: Atom: add machine driver for
+ baytrail-rt5645 hardware
+
+Use machine driver initially defined for CherryTrail
+---
+ sound/soc/intel/atom/sst/sst_acpi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
+index f4d92bb..3d05d0b 100644
+--- a/sound/soc/intel/atom/sst/sst_acpi.c
++++ b/sound/soc/intel/atom/sst/sst_acpi.c
+@@ -445,6 +445,12 @@ static struct sst_acpi_mach sst_acpi_bytcr[] = {
+ 						&byt_rvp_platform_data },
+ 	{"10EC5651", "bytcr_rt5651", "intel/fw_sst_0f28.bin", "bytcr_rt5651", NULL,
+ 						&byt_rvp_platform_data },
++	/* some Baytrail platforms rely on RT5645, use CHT machine driver */
++	{"10EC5645", "cht-bsw-rt5645", "intel/fw_sst_0f28.bin", "cht-bsw", NULL,
++						&byt_rvp_platform_data },
++	{"10EC5648", "cht-bsw-rt5645", "intel/fw_sst_0f28.bin", "cht-bsw", NULL,
++						&byt_rvp_platform_data },
++
+ 	{},
+ };
+ 
+-- 
+2.7.4
+

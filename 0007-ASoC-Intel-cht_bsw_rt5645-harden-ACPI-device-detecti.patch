@@ -1,0 +1,58 @@
+From edb0c884a455704035eb231031d0b5ca2a83916f Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Sat, 12 Nov 2016 14:20:16 -0600
+Subject: [PATCH 07/12] ASoC: Intel: cht_bsw_rt5645: harden ACPI device
+ detection
+
+Fix classic issue of having multiple codecs listed in DSDT
+but a single one actually enabled. The previous code did
+not handle such errors and could also lead to uninitalized
+configurations
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/intel/boards/cht_bsw_rt5645.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index 40a7553..9353480 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -408,22 +408,32 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 	struct sst_acpi_mach *mach;
+ 	const char *i2c_name = NULL;
+ 	int dai_index = 0;
++	bool found = false;
+ 
+ 	drv = devm_kzalloc(&pdev->dev, sizeof(*drv), GFP_ATOMIC);
+ 	if (!drv)
+ 		return -ENOMEM;
+ 
++	mach = (&pdev->dev)->platform_data;
++
+ 	for (i = 0; i < ARRAY_SIZE(snd_soc_cards); i++) {
+-		if (acpi_dev_found(snd_soc_cards[i].codec_id)) {
++		if (acpi_dev_found(snd_soc_cards[i].codec_id) &&
++			(!strncmp(snd_soc_cards[i].codec_id, mach->id, 8))) {
+ 			dev_dbg(&pdev->dev,
+ 				"found codec %s\n", snd_soc_cards[i].codec_id);
+ 			card = snd_soc_cards[i].soc_card;
+ 			drv->acpi_card = &snd_soc_cards[i];
++			found = true;
+ 			break;
+ 		}
+ 	}
++
++	if (!found) {
++		dev_err(&pdev->dev, "No matching HID found in supported list\n");
++		return -ENODEV;
++	}
++
+ 	card->dev = &pdev->dev;
+-	mach = card->dev->platform_data;
+ 	sprintf(drv->codec_name, "i2c-%s:00", drv->acpi_card->codec_id);
+ 
+ 	/* set correct codec name */
+-- 
+2.7.4
+

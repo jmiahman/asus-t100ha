@@ -1,0 +1,29 @@
+From 2f16e6823f4a56e16f334072245b0e40b564cbef Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Thu, 10 Nov 2016 20:47:07 -0600
+Subject: [PATCH 03/12] ASoc: rt5645: add ACPI ID 10EC3270
+
+ALC3270 is a low-cost version of RT5645, add ACPI ID
+to enable probe and use rt5645 codec driver
+Tested on Asus T100HA
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/codecs/rt5645.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index ccfabeb..b0c264d 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -3548,6 +3548,7 @@ static const struct acpi_device_id rt5645_acpi_match[] = {
+ 	{ "10EC5648", 0 },
+ 	{ "10EC5650", 0 },
+ 	{ "10EC5640", 0 },
++	{ "10EC3270", 0 },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(acpi, rt5645_acpi_match);
+-- 
+2.7.4
+

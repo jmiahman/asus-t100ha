@@ -1,0 +1,27 @@
+From b10be5970ac4abdf0a302b906e11babc69a47f04 Mon Sep 17 00:00:00 2001
+From: Jonas Aaberg <cja@gmx.net>
+Date: Wed, 28 Dec 2016 12:54:44 +0100
+Subject: [PATCH 11/12] Bluetooth: hci_bcm: Add BCM2E72 ACPI ID
+
+This ID is used at least by Asus T100HAN
+
+Signed-off-by: Jonas Aaberg <cja@gmx.net>
+---
+ drivers/bluetooth/hci_bcm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
+index 8f6c23c..3e123b3 100644
+--- a/drivers/bluetooth/hci_bcm.c
++++ b/drivers/bluetooth/hci_bcm.c
+@@ -834,6 +834,7 @@ static const struct acpi_device_id bcm_acpi_match[] = {
+ 	{ "BCM2E65", 0 },
+ 	{ "BCM2E67", 0 },
+ 	{ "BCM2E71", 0 },
++	{ "BCM2E72", 0 },
+ 	{ "BCM2E7B", 0 },
+ 	{ "BCM2E7C", 0 },
+ 	{ },
+-- 
+2.7.4
+

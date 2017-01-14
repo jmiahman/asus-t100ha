@@ -1,0 +1,31 @@
+From aef0069dd264d9b1cf7038c340afb9804c529d8c Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 11 Nov 2016 08:13:19 -0600
+Subject: [PATCH 08/12] ASoC: rt5645: fix error handling for gpio detection
+
+Optional gpio handling should not cause an error status
+and prevent probing.
+Remove error return and move error message to dev_info
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/codecs/rt5645.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index b0c264d..77bde13 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -3660,8 +3660,7 @@ static int rt5645_i2c_probe(struct i2c_client *i2c,
+ 						       GPIOD_IN);
+ 
+ 	if (IS_ERR(rt5645->gpiod_hp_det)) {
+-		dev_err(&i2c->dev, "failed to initialize gpiod\n");
+-		return PTR_ERR(rt5645->gpiod_hp_det);
++		dev_info(&i2c->dev, "failed to initialize gpiod\n");
+ 	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(rt5645->supplies); i++)
+-- 
+2.7.4
+

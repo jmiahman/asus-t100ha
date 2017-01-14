@@ -1,0 +1,39 @@
+From 477b4b67e5e06308ecf35d2ee85a33f7a4609078 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Wed, 30 Nov 2016 14:17:05 -0600
+Subject: [PATCH 02/12] ASoC: rt5645: add support for RT5648
+
+add ACPI ID 10EC5648 found e.g on Asus X205TA and use
+rt5645 driver
+---
+ sound/soc/codecs/rt5645.c               | 1 +
+ sound/soc/intel/boards/cht_bsw_rt5645.c | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index 10c2a56..ccfabeb 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -3545,6 +3545,7 @@ MODULE_DEVICE_TABLE(i2c, rt5645_i2c_id);
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id rt5645_acpi_match[] = {
+ 	{ "10EC5645", 0 },
++	{ "10EC5648", 0 },
+ 	{ "10EC5650", 0 },
+ 	{ "10EC5640", 0 },
+ 	{},
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index f504a0e..73efb38 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -344,6 +344,7 @@ static struct snd_soc_card snd_soc_card_chtrt5650 = {
+ static struct cht_acpi_card snd_soc_cards[] = {
+ 	{"10EC5640", CODEC_TYPE_RT5645, &snd_soc_card_chtrt5645},
+ 	{"10EC5645", CODEC_TYPE_RT5645, &snd_soc_card_chtrt5645},
++	{"10EC5648", CODEC_TYPE_RT5645, &snd_soc_card_chtrt5645},
+ 	{"10EC5650", CODEC_TYPE_RT5650, &snd_soc_card_chtrt5650},
+ };
+ 
+-- 
+2.7.4
+

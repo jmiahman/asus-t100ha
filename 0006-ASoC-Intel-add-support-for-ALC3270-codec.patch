@@ -1,0 +1,45 @@
+From 776fda598622d2084b0814918bacdc4f4e53f36d Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Thu, 10 Nov 2016 20:50:55 -0600
+Subject: [PATCH 06/12] ASoC: Intel: add support for ALC3270 codec
+
+Use ACPI ID 10EC3270 to load machine driver for cht-bsw-rt5645
+and add reference to 3270 to use the rt5645 mode
+
+Tested on Asus T100HA
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/intel/atom/sst/sst_acpi.c     | 3 +++
+ sound/soc/intel/boards/cht_bsw_rt5645.c | 1 +
+ 2 files changed, 4 insertions(+)
+
+diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
+index 3d05d0b..2240144 100644
+--- a/sound/soc/intel/atom/sst/sst_acpi.c
++++ b/sound/soc/intel/atom/sst/sst_acpi.c
+@@ -464,6 +464,9 @@ static struct sst_acpi_mach sst_acpi_chv[] = {
+ 						&chv_platform_data },
+ 	{"10EC5650", "cht-bsw-rt5645", "intel/fw_sst_22a8.bin", "cht-bsw", NULL,
+ 						&chv_platform_data },
++	{"10EC3270", "cht-bsw-rt5645", "intel/fw_sst_22a8.bin", "cht-bsw", NULL,
++						&chv_platform_data },
++
+ 	{"193C9890", "cht-bsw-max98090", "intel/fw_sst_22a8.bin", "cht-bsw", NULL,
+ 						&chv_platform_data },
+ 	/* some CHT-T platforms rely on RT5640, use Baytrail machine driver */
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index 83c3833..40a7553 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -381,6 +381,7 @@ static struct cht_acpi_card snd_soc_cards[] = {
+ 	{"10EC5640", CODEC_TYPE_RT5645, &snd_soc_card_chtrt5645},
+ 	{"10EC5645", CODEC_TYPE_RT5645, &snd_soc_card_chtrt5645},
+ 	{"10EC5648", CODEC_TYPE_RT5645, &snd_soc_card_chtrt5645},
++	{"10EC3270", CODEC_TYPE_RT5645, &snd_soc_card_chtrt5645},
+ 	{"10EC5650", CODEC_TYPE_RT5650, &snd_soc_card_chtrt5650},
+ };
+ 
+-- 
+2.7.4
+
