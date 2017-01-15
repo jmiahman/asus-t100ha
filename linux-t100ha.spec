@@ -1,9 +1,10 @@
 %global debug_package %{nil}
-%global kernel_rc -rc3
+%define rc_ver rc3
+%define kernel_rc -rc3
 
-Name:		linux-vanilla
+Name:		linux-t100ha
 Version:	4.10.0
-Release:	1%{?dist}
+Release:	%{rc_ver}.1%{?dist}
 Summary:	The Linux kernel
 
 Group:		System Environment/Kernel		
@@ -11,7 +12,6 @@ License:	GPLv2 and Redistributable
 URL:		http://ftp.kernel.org
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/testing/linux-%{version}%{kernel_rc}.tar.xz	
 
-#Source1:	kernelconfig.armhf
 #Source2:	kernelconfig.x86
 Source3:	kernelconfig.x86_64
 
@@ -28,6 +28,7 @@ Patch0009: 0009-ASoC-Intel-cht-bsw-rt5645-add-quirks-for-SSP0-AIF1-A.patch
 Patch0010: 0010-drm-i915-Workaround-VLV-CHV-DSI-scanline-counter-har.patch
 Patch0011: 0011-Bluetooth-hci_bcm-Add-BCM2E72-ACPI-ID.patch
 Patch0012: 0012-input-ASUS-T100-touchpad-multitouch-driver.patch
+Patch0013: 0013-input-i2c-hid-delay.patch
 
 #BuildRequires:	
 #Requires:	
@@ -36,13 +37,10 @@ Patch0012: 0012-input-ASUS-T100-touchpad-multitouch-driver.patch
 The Linux kernel %{version}
 
 %prep
-#rm -rf %{buildroot}
+rm -rf %{buildroot}
 %autosetup -p1 -n linux-%{version}%{kernel_rc}
 
 mkdir -p %{buildroot}/build
-%ifarch armv7l armv5el
-%__cp %{SOURCE1} .config
-%endif
 
 %ifarch i386 i486 i586 i686
 %__cp %{SOURCE2} .config
@@ -54,7 +52,7 @@ mkdir -p %{buildroot}/build
 
 %build
 %make_build silentoldconfig
-%make_build KBUILD_BUILD_VERSION=%{version}-%{release}-Unity
+%make_build KBUILD_BUILD_VERSION=%{version}-%{release}-UnityLinux
 
 mkdir -p %{buildroot}/usr/src/linux-headers-%{version}
 %__cp -f %{SOURCE3} %{buildroot}/usr/src/linux-headers-%{version}/.config
@@ -79,12 +77,15 @@ install -D include/config/kernel.release \
 # /boot
 install -d $RPM_BUILD_ROOT/boot
 mv $RPM_BUILD_ROOT/.config $RPM_BUILD_ROOT/boot/config-%{version}%{kernel_rc}
-dracut -f $RPM_BUILD_ROOT/boot/initramfs-%{version}%{kernel_rc}.img %{version}%{kernel_rc}
+
+%post
+if [ $1 -eq 1 ] ; then
+   dracut -f /boot/initramfs-%{version}%{kernel_rc}.img %{version}%{kernel_rc} &> /dev/null || :
+fi
 
 %files
 %doc
 /boot/*%{version}%{kernel_rc}
-/boot/initramfs-%{version}%{kernel_rc}.img
 /lib/modules/%{version}%{kernel_rc}/
 /usr/share/kernel/
 
