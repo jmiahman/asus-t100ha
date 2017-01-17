@@ -28,7 +28,6 @@ Patch0009: 0009-ASoC-Intel-cht-bsw-rt5645-add-quirks-for-SSP0-AIF1-A.patch
 Patch0010: 0010-drm-i915-Workaround-VLV-CHV-DSI-scanline-counter-har.patch
 Patch0011: 0011-Bluetooth-hci_bcm-Add-BCM2E72-ACPI-ID.patch
 Patch0012: 0012-input-ASUS-T100-touchpad-multitouch-driver.patch
-Patch0013: 0013-input-i2c-hid-delay.patch
 
 #BuildRequires:	
 #Requires:	
