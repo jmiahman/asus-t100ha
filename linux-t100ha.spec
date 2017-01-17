@@ -1,6 +1,6 @@
 %global debug_package %{nil}
-%define rc_ver rc3
-%define kernel_rc -rc3
+%define rc_ver rc4
+%define kernel_rc -rc4
 
 Name:		linux-t100ha
 Version:	4.10.0
