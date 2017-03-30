@@ -3,7 +3,7 @@
 %define kernel_rc -rc4
 
 Name:		linux-t100ha
-Version:	4.10.0
+Version:	4.11.0
 Release:	%{rc_ver}.1%{?dist}
 Summary:	The Linux kernel
 
@@ -17,16 +17,16 @@ Source3:	kernelconfig.x86_64
 
 # Patches for t100ha
 Patch0001: 0001-hid-input-Add-Asus-T100-T100HA-specific-keys.patch
-Patch0002: 0002-ASoC-rt5645-add-support-for-RT5648.patch
-Patch0003: 0003-ASoc-rt5645-add-ACPI-ID-10EC3270.patch
-Patch0004: 0004-ASoC-Intel-cht_bsw_rt5645-add-Baytrail-MCLK-support.patch
-Patch0005: 0005-ASoC-Intel-Atom-add-machine-driver-for-baytrail-rt56.patch
-Patch0006: 0006-ASoC-Intel-add-support-for-ALC3270-codec.patch
-Patch0007: 0007-ASoC-Intel-cht_bsw_rt5645-harden-ACPI-device-detecti.patch
-Patch0008: 0008-ASoC-rt5645-fix-error-handling-for-gpio-detection.patch
-Patch0009: 0009-ASoC-Intel-cht-bsw-rt5645-add-quirks-for-SSP0-AIF1-A.patch
+#Patch0002: 0002-ASoC-rt5645-add-support-for-RT5648.patch
+#Patch0003: 0003-ASoc-rt5645-add-ACPI-ID-10EC3270.patch
+#Patch0004: 0004-ASoC-Intel-cht_bsw_rt5645-add-Baytrail-MCLK-support.patch
+#Patch0005: 0005-ASoC-Intel-Atom-add-machine-driver-for-baytrail-rt56.patch
+#Patch0006: 0006-ASoC-Intel-add-support-for-ALC3270-codec.patch
+#Patch0007: 0007-ASoC-Intel-cht_bsw_rt5645-harden-ACPI-device-detecti.patch
+#Patch0008: 0008-ASoC-rt5645-fix-error-handling-for-gpio-detection.patch
+#Patch0009: 0009-ASoC-Intel-cht-bsw-rt5645-add-quirks-for-SSP0-AIF1-A.patch
 Patch0010: 0010-drm-i915-Workaround-VLV-CHV-DSI-scanline-counter-har.patch
-Patch0011: 0011-Bluetooth-hci_bcm-Add-BCM2E72-ACPI-ID.patch
+#Patch0011: 0011-Bluetooth-hci_bcm-Add-BCM2E72-ACPI-ID.patch
 Patch0012: 0012-input-ASUS-T100-touchpad-multitouch-driver.patch
 
 #BuildRequires:	
